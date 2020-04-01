@@ -1,0 +1,23 @@
+import requests
+
+#r=requests.get("http://www.facebook.com", headers={"content-type":"text"})
+#print (r.content)
+
+r = requests.get('https://www.facebook.com', verify=True)
+rr = r.headers
+secure_attrb = "secure"
+#print (r.headers)
+for key in rr:
+    #print(key, 'corresponds to', rr[key])
+    #if key in 'Set-Cookie':
+     #print (rr[key])
+    if secure_attrb in rr[key]:
+     print ("Your domian is secure with secure attribute")
+    if 'httponly' in rr[key]:
+     print ("your domain is secure with httponly attribute")
+    if key in 'X-Frame-Options':
+        print (rr[key] , " Is the value set for X-Frame-Options")
+    xx = rr[key].split(';')
+#print (xx)
+if 'X-Frame-Options corresponds to DENY' in xx:
+ print ("CORS is not allowed in your domain")
